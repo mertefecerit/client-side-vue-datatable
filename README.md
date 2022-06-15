@@ -1,6 +1,9 @@
 # client-side-vue-datatable
 This repo is client side vue3 datatable with tailwindcss
 - I know this repo have bugs, i know datatable design bad. But i love this project :)
+- Dep. [lodash](https://lodash.com/) and [xlsx](https://www.npmjs.com/package/xlsx)
+
+
 ![alt text](application.png)
 
 
