@@ -14,8 +14,9 @@
                 </select>
             </div>
         </div>
-        <table class="table-auto w-full text-center rounded border mb-2">
-            <thead class="bg-gray-300 text-gray-700">
+        <div class="rounded overflow-hidden border mb-2">
+            <table class="table-auto w-full text-center">
+                <thead class="bg-gray-300 text-gray-700">
                 <tr>
                     <th v-if="processColumn"></th>
                     <th :class="{'hidden':hiddenColumns.includes(columnName.real)}" class="p-2" v-for="columnName in columnNames">
@@ -29,8 +30,8 @@
                         </div>
                     </th>
                 </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
+                </thead>
+                <tbody class="divide-y divide-gray-100">
                 <tr v-for="(record, index) in datatableRecords" :class="{'bg-gray-50':index % 2 !== 0}">
                     <td v-if="processColumn" class="p-2 text-left">
                         <Dropdown classes="w-44 p-2 border">
@@ -45,8 +46,9 @@
                     </td>
                     <td :class="{'hidden':hiddenColumns.includes(key)}" class="p-2" v-for="key in Object.keys(record)" v-show="!exceptColumns.includes(key)">{{record[key]}}</td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
         <div class="flex justify-between items-center">
             <span class="text-gray-500">Toplam Kayıt : {{records.length}}</span>
             <div class="rounded overflow-hidden">
