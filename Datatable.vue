@@ -156,9 +156,9 @@ export default {
         // Filter records inputbox method
         const filterRecords = () => {
             if(!filterInputValue.value){
+                allRecords = props.records;
                 pageCount.value = Math.ceil(props.records.length / perPageRecordNumber.value);
                 datatableRecords.value = _.chunk(props.records,perPageRecordNumber.value)[0];
-                console.log("evet")
             }else{
                 allRecords = props.records.filter(item => {
                     return JSON.stringify(item).toLocaleLowerCase().indexOf(filterInputValue.value.toLocaleLowerCase()) > -1;
