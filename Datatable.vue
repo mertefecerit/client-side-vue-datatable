@@ -6,7 +6,7 @@
                 <input v-model="filterInputValue" @keyup.prevent="filterRecords" type="text" placeholder="Kayıt Ara" class="p-2 bg-gray-100 border border-gray-200 focus:outline-0 rounded">
             </div>
             <div class="flex gap-2 items-center">
-                <button @click="hiddenColumns.length = 0" class="p-2 bg-gray-500 text-white hover:bg-gray-600 rounded"><i class="fas fa-eye mr-2"></i>Tüm Kolonları Göster</button>
+                <button @click="hiddenColumns.length = 0" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 rounded"><i class="fas fa-eye mr-2"></i>Tüm Kolonları Göster</button>
                 <button @click.prevent="getExcel('current')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Mevcut</button>
                 <button @click.prevent="getExcel('total')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Tamamı</button>
                 <select @change.prevent="chunkRecords" v-model="perPageRecordNumber" class="p-2 border bg-gray-100 focus:outline-0 rounded">
@@ -52,9 +52,9 @@
         <div class="flex justify-between items-center">
             <span class="text-gray-500">Toplam Kayıt : {{records.length}}</span>
             <div class="rounded overflow-hidden">
-                <button @click.prevent="previousPage" class="p-2 bg-gray-500 text-white hover:bg-gray-600 transition-all"><i class="fas fa-arrow-alt-circle-left mr-2"></i>Geri</button>
+                <button :disabled="currentPage === 0" @click.prevent="previousPage" class="p-2 bg-gray-500 text-white hover:bg-gray-600 transition-all disabled:cursor-not-allowed"><i class="fas fa-arrow-alt-circle-left mr-2"></i>Geri</button>
                 <button class="p-2 bg-gray-500 text-white">{{(currentPage + 1)}} / {{pageCount}}</button>
-                <button @click.prevent="nextPage" class="p-2 bg-gray-500 text-white hover:bg-gray-600 transition-all">İleri<i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
+                <button :disabled="(currentPage+1) === pageCount" @click.prevent="nextPage" class="p-2 bg-gray-500 text-white hover:bg-gray-600 transition-all disabled:cursor-not-allowed">İleri<i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
             </div>
         </div>
     </div>
