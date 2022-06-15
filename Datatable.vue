@@ -7,8 +7,7 @@
             </div>
             <div class="flex gap-2 items-center">
                 <button @click="hiddenColumns.length = 0" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 rounded"><i class="fas fa-eye mr-2"></i>Tüm Kolonları Göster</button>
-                <button :disabled="datatableRecords.length === 0" @click.prevent="getExcel('current')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded disabled:cursor-not-allowed"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Mevcut</button>
-                <button @click.prevent="getExcel('total')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Tamamı</button>
+                <button @click.prevent="getExcel" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Excel</button>
                 <select @change.prevent="chunkRecords" v-model="perPageRecordNumber" class="p-2 border bg-gray-100 focus:outline-0 rounded">
                     <option v-for="val in perPageRecordNumbers" :value="val">{{val}}</option>
                 </select>
@@ -109,55 +108,36 @@ export default {
         const sortDirection = ref();
         const sortColumnName = ref();
         const filterInputValue = ref();
-        const pageCount = computed(() => {
-            return Math.ceil(props.records.length / perPageRecordNumber.value);
-        });
+        const datatableRecords = ref([]);
+        const pageCount = ref(0);
+        let allRecords = [];
         // Init comp. needed reactive variable section
 
 
-        const reset = () => {
-            perPageRecordNumber.value = 10;
-            currentPage.value = 0;
-            datatableRecords.value = _.chunk(props.records,perPageRecordNumber.value)[0];
-        }
-
-
-        // Watch props.records
-        const datatableRecords = ref([]);
+        // Watch props.records and calculate data
         watch(props, () => {
-            perPageRecordNumber.value = 10;
-            currentPage.value = 0;
-            datatableRecords.value = _.chunk(props.records,perPageRecordNumber.value)[0];
+            // get all records to new array
+            allRecords = [...props.records];
+            //calculate totalPage count
+            pageCount.value = Math.ceil(allRecords.length / perPageRecordNumber.value);
+            // set first page of datatable
+            datatableRecords.value = _.chunk(allRecords,perPageRecordNumber.value)[0];
         },{deep:true})
-        // Watch props.records
+        // Watch props.records and calculate data
 
 
 
         // PreviousPage or next button function
         const previousPage = () => {
             if(currentPage.value >= 1){
-                if (sortColumnName.value){
-                    datatableRecords.value = _.orderBy(props.records,[sortColumnName.value],[sortDirection.value]);
-                    datatableRecords.value = _.chunk(datatableRecords.value,perPageRecordNumber.value)[currentPage.value - 1]
-                }
-                else{
-                    datatableRecords.value = _.chunk(props.records,perPageRecordNumber.value)[currentPage.value - 1]
-                }
-
+                datatableRecords.value = _.chunk(allRecords,perPageRecordNumber.value)[currentPage.value - 1]
                 currentPage.value--
             }
 
         }
         const nextPage = () => {
             if ((currentPage.value + 1) < pageCount.value){
-                if (sortColumnName.value){
-                    datatableRecords.value = _.orderBy(props.records,[sortColumnName.value],[sortDirection.value]);
-                    datatableRecords.value = _.chunk(datatableRecords.value,perPageRecordNumber.value)[currentPage.value + 1]
-                }
-                else{
-                    datatableRecords.value = _.chunk(props.records,perPageRecordNumber.value)[currentPage.value + 1]
-                }
-
+                datatableRecords.value = _.chunk(allRecords,perPageRecordNumber.value)[currentPage.value + 1]
                 currentPage.value++
             }
         }
@@ -167,14 +147,8 @@ export default {
 
         // Show pieces of records method
         const chunkRecords = () => {
-            currentPage.value = 0;
-            if (sortColumnName.value){
-                datatableRecords.value = _.orderBy(props.records,[sortColumnName.value],[sortDirection.value]);
-                datatableRecords.value = _.chunk(datatableRecords.value,perPageRecordNumber.value)[0];
-            }else{
-                datatableRecords.value = _.chunk(props.records,perPageRecordNumber.value)[0];
-            }
-
+            pageCount.value = Math.ceil(allRecords.length / perPageRecordNumber.value);
+            datatableRecords.value = _.chunk(allRecords,perPageRecordNumber.value)[0];
         }
         // Show pieces of records method
 
@@ -182,11 +156,15 @@ export default {
         // Filter records inputbox method
         const filterRecords = () => {
             if(!filterInputValue.value){
+                pageCount.value = Math.ceil(props.records.length / perPageRecordNumber.value);
                 datatableRecords.value = _.chunk(props.records,perPageRecordNumber.value)[0];
+                console.log("evet")
             }else{
-                datatableRecords.value = props.records.filter(item => {
+                allRecords = props.records.filter(item => {
                     return JSON.stringify(item).toLocaleLowerCase().indexOf(filterInputValue.value.toLocaleLowerCase()) > -1;
                 });
+                pageCount.value = Math.ceil(allRecords.length / perPageRecordNumber.value);
+                datatableRecords.value = _.chunk(allRecords,perPageRecordNumber.value)[0];
             }
         }
         // Filter records inputbox method
@@ -195,12 +173,8 @@ export default {
 
         // Export excel file section
         const xlsx = inject('xlsx');
-        const getExcel = (type) => {
-            let data = props.records;
-            if (type === "current"){
-                data = datatableRecords.value;
-            }
-            const worksheet = xlsx.utils.json_to_sheet(data);
+        const getExcel = () => {
+            const worksheet = xlsx.utils.json_to_sheet(allRecords);
             const workbook = xlsx.utils.book_new();
             xlsx.utils.book_append_sheet(workbook, worksheet, "Records");
             xlsx.writeFile(workbook, props.exportFileName+'.xlsx');
@@ -211,22 +185,19 @@ export default {
 
 
         const sortRecords = (columnName) => {
-            reset();
             sortColumnName.value = columnName;
             if (sortDirection.value === 'asc'){
                 sortDirection.value = 'desc';
             }else{
                 sortDirection.value = 'asc'
             }
-            datatableRecords.value = _.orderBy(props.records,[columnName],[sortDirection.value]);
-            datatableRecords.value = _.chunk(datatableRecords.value,perPageRecordNumber.value)[0];
-
+            allRecords = _.orderBy(allRecords,[columnName],[sortDirection.value]);
+            datatableRecords.value = _.chunk(allRecords,perPageRecordNumber.value)[0];
         }
 
 
         return {
             perPageRecordNumber,
-            pageCount,
             datatableRecords,
             perPageRecordNumbers,
             chunkRecords,
@@ -239,7 +210,8 @@ export default {
             sortDirection,
             sortRecords,
             sortColumnName,
-            filterInputValue
+            filterInputValue,
+            pageCount
         }
     }
 }
