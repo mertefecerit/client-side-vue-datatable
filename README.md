@@ -7,4 +7,8 @@ This repo is client side vue3 datatable with tailwindcss
 ![alt text](application.png)
 
 
+- Update new emitable dropdown item prop
+
+![update1](https://user-images.githubusercontent.com/51813597/173813448-b3f97177-099a-4719-81f9-36c9332b2b11.png)
+
 https://user-images.githubusercontent.com/51813597/173753157-ce96404b-8e5c-454a-b08d-93e9de4a0ebf.mp4
