@@ -2,22 +2,19 @@
     <div class="overflow-auto">
         <div class="flex justify-between mb-2">
             <div class="flex gap-2 items-center">
-                <button @click.prevent="$emit('datatableNewRecord')" class="p-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 focus:outline-0"><i class="fas fa-plus mr-2"></i>Yeni Kayıt</button>
-                <input v-model="filterInputValue" @keyup.prevent="filterRecords" type="text" placeholder="Kayıt Ara" class="p-2 bg-gray-100 border border-gray-200 focus:outline-0">
+                <button @click.prevent="$emit('datatableNewRecord')" class="p-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 focus:outline-0 rounded"><i class="fas fa-plus mr-2"></i>Yeni Kayıt</button>
+                <input v-model="filterInputValue" @keyup.prevent="filterRecords" type="text" placeholder="Kayıt Ara" class="p-2 bg-gray-100 border border-gray-200 focus:outline-0 rounded">
             </div>
             <div class="flex gap-2 items-center">
-                <button @click="hiddenColumns.length = 0" class="p-2 bg-gray-500 text-white hover:bg-gray-600"><i class="fas fa-eye mr-2"></i>Tüm Kolonları Göster</button>
-                <label for="">
-                    Göster
-                    <select @change.prevent="chunkRecords" v-model="perPageRecordNumber" class="p-2 border bg-gray-100 focus:outline-0">
-                        <option v-for="val in perPageRecordNumbers" :value="val">{{val}}</option>
-                    </select>
-                </label>
-                <button @click.prevent="getExcel('current')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0"><i class="fas fa-file-excel mr-2"></i>Mevcut</button>
-                <button @click.prevent="getExcel('total')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0"><i class="fas fa-file-excel mr-2"></i>Tamamı</button>
+                <button @click="hiddenColumns.length = 0" class="p-2 bg-gray-500 text-white hover:bg-gray-600 rounded"><i class="fas fa-eye mr-2"></i>Tüm Kolonları Göster</button>
+                <button @click.prevent="getExcel('current')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Mevcut</button>
+                <button @click.prevent="getExcel('total')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Tamamı</button>
+                <select @change.prevent="chunkRecords" v-model="perPageRecordNumber" class="p-2 border bg-gray-100 focus:outline-0 rounded">
+                    <option v-for="val in perPageRecordNumbers" :value="val">{{val}}</option>
+                </select>
             </div>
         </div>
-        <table id="TableToExport" class="table-auto w-full text-center rounded border mb-2">
+        <table class="table-auto w-full text-center rounded border mb-2">
             <thead class="bg-gray-300 text-gray-700">
                 <tr>
                     <th v-if="processColumn"></th>
@@ -34,10 +31,10 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-                <tr v-for="record in datatableRecords">
+                <tr v-for="(record, index) in datatableRecords" :class="{'bg-gray-50':index % 2 !== 0}">
                     <td v-if="processColumn" class="p-2 text-left">
                         <Dropdown classes="w-44 p-2 border">
-                            <span class="inline-block p-2 rounded bg-sky-500 hover:bg-sky-600 text-white"><i class="fas fa-list"></i></span>
+                            <span class="inline-block p-2 rounded bg-gray-500 hover:bg-gray-600 text-white"><i class="fas fa-list"></i></span>
                             <template v-slot:items>
                                 <ul class="text-left">
                                     <li><a @click.prevent="$emit('onEdit', record)" href="#" class="text-sky-500 hover:text-sky-600 inline-block p-2 w-full hover:bg-gray-100 rounded"><i class="fas fa-edit mr-2"></i>Düzenle</a></li>
@@ -52,7 +49,7 @@
         </table>
         <div class="flex justify-between items-center">
             <span class="text-gray-500">Toplam Kayıt : {{records.length}}</span>
-            <div>
+            <div class="rounded overflow-hidden">
                 <button @click.prevent="previousPage" class="p-2 bg-gray-500 text-white hover:bg-gray-600 transition-all"><i class="fas fa-arrow-alt-circle-left mr-2"></i>Geri</button>
                 <button class="p-2 bg-gray-500 text-white">{{(currentPage + 1)}} / {{pageCount}}</button>
                 <button @click.prevent="nextPage" class="p-2 bg-gray-500 text-white hover:bg-gray-600 transition-all">İleri<i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
