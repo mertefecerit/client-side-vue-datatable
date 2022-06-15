@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-auto">
+    <div v-if="records.length > 0" class="overflow-auto">
         <div class="flex justify-between mb-2">
             <div class="flex gap-2 items-center">
                 <button @click.prevent="$emit('datatableNewRecord')" class="p-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 focus:outline-0 rounded"><i class="fas fa-plus mr-2"></i>Yeni Kayıt</button>
@@ -7,7 +7,7 @@
             </div>
             <div class="flex gap-2 items-center">
                 <button @click="hiddenColumns.length = 0" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 rounded"><i class="fas fa-eye mr-2"></i>Tüm Kolonları Göster</button>
-                <button @click.prevent="getExcel('current')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Mevcut</button>
+                <button :disabled="datatableRecords.length === 0" @click.prevent="getExcel('current')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded disabled:cursor-not-allowed"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Mevcut</button>
                 <button @click.prevent="getExcel('total')" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Tamamı</button>
                 <select @change.prevent="chunkRecords" v-model="perPageRecordNumber" class="p-2 border bg-gray-100 focus:outline-0 rounded">
                     <option v-for="val in perPageRecordNumbers" :value="val">{{val}}</option>
@@ -58,17 +58,25 @@
             </div>
         </div>
     </div>
+    <div v-else class="flex flex-col gap-4 items-center">
+        <button @click.prevent="$emit('datatableNewRecord')" class="p-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 focus:outline-0 rounded"><i class="fas fa-plus mr-2"></i>Yeni Kayıt</button>
+        <Alert>
+            <span>Henüz burada bir kayıt yok</span>
+        </Alert>
+    </div>
 </template>
 
 <script>
 import {computed, ref, watch, inject} from "vue";
 import Dropdown from "./Dropdown";
+import Alert from "./Alert";
 
 export default {
     name: "Datatable",
     emits:['datatableNewRecord','onEdit','onDelete'],
     components:{
-        Dropdown
+        Dropdown,
+        Alert
     },
     props:{
         processColumn:{
