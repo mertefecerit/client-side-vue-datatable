@@ -2,11 +2,11 @@
     <div v-if="records.length > 0" class="overflow-auto bg-white p-2 rounded">
         <div class="flex justify-between mb-2">
             <div class="flex gap-2 items-center">
-                <button @click.prevent="$emit('onCreate')" class="p-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 focus:outline-0 rounded"><i class="fas fa-plus mr-2"></i>Yeni Kayıt</button>
-                <input v-model="filterInputValue" @keyup.prevent="filterRecords" type="text" placeholder="Kayıt Ara" class="p-2 bg-gray-100 border border-gray-200 focus:outline-0 rounded">
+                <button @click.prevent="$emit('onCreate')" class="p-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 focus:outline-0 rounded"><i class="fas fa-plus mr-2"></i>{{languages[language].newRecordButtonText}}</button>
+                <input v-model="filterInputValue" @keyup.prevent="filterRecords" type="text" :placeholder="languages[language].filterInputPlaceHolderText" class="p-2 bg-gray-100 border border-gray-200 focus:outline-0 rounded">
             </div>
             <div class="flex gap-2 items-center">
-                <button @click="hiddenColumns.length = 0" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 rounded"><i class="fas fa-eye mr-2"></i>Tüm Kolonları Göster</button>
+                <button @click="hiddenColumns.length = 0" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 rounded"><i class="fas fa-eye mr-2"></i>{{languages[language].seeAllColumnsText}}</button>
                 <button @click.prevent="getExcel" class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-500 focus:outline-0 rounded"><i class="fas fa-arrow-down-long"></i><i class="fas fa-file-excel mr-2"></i>Excel</button>
                 <select @change.prevent="chunkRecords" v-model="perPageRecordNumber" class="p-2 border bg-gray-100 focus:outline-0 rounded">
                     <option v-for="val in perPageRecordNumbers" :value="val" :key="val">{{val}}</option>
@@ -50,18 +50,18 @@
             </table>
         </div>
         <div class="flex justify-between items-center">
-            <span class="text-gray-500">Toplam Kayıt : {{records.length}}</span>
+            <span class="text-gray-500">{{languages[language].totalRecord}} : {{records.length}}</span>
             <div class="rounded overflow-hidden">
-                <button :disabled="currentPage === 0" @click.prevent="previousPage" class="p-2 bg-gray-500 text-white hover:bg-gray-600 transition-all disabled:cursor-not-allowed"><i class="fas fa-arrow-alt-circle-left mr-2"></i>Geri</button>
+                <button :disabled="currentPage === 0" @click.prevent="previousPage" class="p-2 bg-gray-500 text-white hover:bg-gray-600 transition-all disabled:cursor-not-allowed"><i class="fas fa-arrow-alt-circle-left mr-2"></i>{{languages[language].nextButtonText}}</button>
                 <button class="p-2 bg-gray-500 text-white">{{(currentPage + 1)}} / {{pageCount}}</button>
-                <button :disabled="(currentPage+1) === pageCount" @click.prevent="nextPage" class="p-2 bg-gray-500 text-white hover:bg-gray-600 transition-all disabled:cursor-not-allowed">İleri<i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
+                <button :disabled="(currentPage+1) === pageCount" @click.prevent="nextPage" class="p-2 bg-gray-500 text-white hover:bg-gray-600 transition-all disabled:cursor-not-allowed">{{languages[language].previousButtonText}}<i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
             </div>
         </div>
     </div>
     <div v-else class="flex flex-col gap-4 items-center">
-        <button @click.prevent="$emit('onCreate')" class="p-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 focus:outline-0 rounded"><i class="fas fa-plus mr-2"></i>Yeni Kayıt</button>
+        <button @click.prevent="$emit('onCreate')" class="p-2 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 focus:outline-0 rounded"><i class="fas fa-plus mr-2"></i>{{languages[language].newRecordButtonText}}</button>
         <Alert>
-            <span>No records here yet</span>
+            <span>{{languages[language].alertMessage}}</span>
         </Alert>
     </div>
 </template>
@@ -70,8 +70,13 @@
 import {watchEffect, ref, watch, inject, computed} from "vue";
     import Dropdown from "./Dropdown";
     import Alert from "./Alert";
+    import languages from "./languages.json"
 
     const props = defineProps({
+        language:{
+          default:"en",
+          type:String
+        },
         menuItems:{
             default:[],
             type:Array
