@@ -78,7 +78,7 @@
 </template>
 
 <script setup>
-import {watchEffect, ref, inject} from "vue";
+import {watchEffect, ref, inject, defineProps, defineEmits} from "vue";
     import Dropdown from "./components/Dropdown";
     import Alert from "./components/Alert";
     import languages from "./lang"
