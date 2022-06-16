@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import {watchEffect, ref, watch, inject, computed} from "vue";
+import {watchEffect, ref, inject} from "vue";
     import Dropdown from "./Dropdown";
     import Alert from "./Alert";
     import languages from "./languages.json"
@@ -102,7 +102,7 @@ import {watchEffect, ref, watch, inject, computed} from "vue";
             type: String
         }
     });
-    const emit = defineEmits(['datatableNewRecord'])
+    const emit = defineEmits(['onCreate','onEdit','onDelete','onRead'])
 
     // Init comp. needed reactive variable section
     const perPageRecordNumbers = ref([10,25,50,100]);
