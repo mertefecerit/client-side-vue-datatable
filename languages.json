@@ -1,0 +1,20 @@
+{
+    "en":{
+        "newRecordButtonText":"New Record",
+        "filterInputPlaceHolderText":"Search Record",
+        "seeAllColumnsText":"See All Columns",
+        "nextButtonText":"Next",
+        "previousButtonText":"Previous",
+        "alertMessage":"No Records Here Yet!",
+        "totalRecord": "Total Records"
+    },
+    "tr":{
+        "newRecordButtonText":"Yeni Kayıt",
+        "filterInputPlaceHolderText":"Kayıt Ara",
+        "seeAllColumnsText":"Tüm Kolonları Göster",
+        "nextButtonText":"İleri",
+        "previousButtonText":"Geri",
+        "alertMessage":"Henüz Burada Bir Kayıt Yok!",
+        "totalRecord": "Total Kayıtlar"
+    }
+}
