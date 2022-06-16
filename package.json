@@ -1,0 +1,30 @@
+{
+  "name": "@mertefecerit/vuetable",
+  "version": "1.0.4",
+  "description": "ClientSide Vue3 Datatable",
+  "main": "index.vue",
+  "homepage": "https://github.com/mertefecerit/client-side-vue-datatable/blob/main/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mertefecerit/client-side-vue-datatable.git"
+    
+  },
+  "bugs": {
+    "url": "https://github.com/mertefecerit/client-side-vue-datatable/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.19"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  },
+  "keywords": [
+    "vue",
+    "datatable"
+  ],
+  "author": "mertefecerit",
+  "license": "ISC"
+}
