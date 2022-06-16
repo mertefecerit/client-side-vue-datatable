@@ -1,6 +1,6 @@
 {
   "name": "@mertefecerit/vuetable",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "ClientSide Vue3 Datatable",
   "main": "index.vue",
   "homepage": "https://github.com/mertefecerit/client-side-vue-datatable/blob/main/README.md",
