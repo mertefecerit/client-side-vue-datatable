@@ -2,8 +2,9 @@
 This repo is client side vue3 datatable with tailwindcss
 - Dep. [lodash](https://lodash.com/) and [xlsx](https://www.npmjs.com/package/xlsx), [fontawesome-free]( https://www.npmjs.com/package/@fortawesome/fontawesome-free)
 
-İnstallation
-- npm i @mertefecerit/vuetable
+
+Installation
+- [npm i @mertefecerit/vuetable](https://www.npmjs.com/package/@mertefecerit/vuetable)
 - npm i tailwindcss
 - update app.css for tailwindcss and fontawesome
 - ![image](https://user-images.githubusercontent.com/51813597/173995398-e7137383-b729-49b6-82ff-4453b941d090.png)
