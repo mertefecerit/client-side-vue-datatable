@@ -2,7 +2,7 @@
     "en":{
         "newRecordButtonText":"New Record",
         "filterInputPlaceHolderText":"Search Record",
-        "seeAllColumnsText":"See All Columns",
+        "seeAllColumnsText":"Show All",
         "nextButtonText":"Next",
         "previousButtonText":"Previous",
         "alertMessage":"No Records Here Yet!",
@@ -11,7 +11,7 @@
     "tr":{
         "newRecordButtonText":"Yeni Kayıt",
         "filterInputPlaceHolderText":"Kayıt Ara",
-        "seeAllColumnsText":"Tüm Kolonları Göster",
+        "seeAllColumnsText":"Tümünü Göster",
         "nextButtonText":"İleri",
         "previousButtonText":"Geri",
         "alertMessage":"Henüz Burada Bir Kayıt Yok!",
