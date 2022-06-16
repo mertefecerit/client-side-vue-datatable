@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-    import {ref, watch, inject} from "vue";
+import {watchEffect, ref, watch, inject, computed} from "vue";
     import Dropdown from "./Dropdown";
     import Alert from "./Alert";
 
@@ -112,16 +112,16 @@
     let allRecords = [];
     // Init comp. needed reactive variable section
 
-    // Watch props.records and calculate data
-    watch(props, () => {
+    // WatchEffect props.records and calculate data
+    watchEffect(() => {
         // get all records to new array
         allRecords = [...props.records];
         //calculate totalPage count
         pageCount.value = Math.ceil(allRecords.length / perPageRecordNumber.value);
         // set first page of datatable
         datatableRecords.value = _.chunk(allRecords,perPageRecordNumber.value)[0];
-    },{deep:true})
-    // Watch props.records and calculate data
+    })
+    // WatchEffect props.records and calculate data
 
     // PreviousPage or next button function
     const previousPage = () => {
