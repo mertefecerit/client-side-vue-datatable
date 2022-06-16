@@ -1,6 +1,6 @@
 {
   "name": "@mertefecerit/vuetable",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "ClientSide Vue3 Datatable",
   "main": "index.vue",
   "homepage": "https://github.com/mertefecerit/client-side-vue-datatable/blob/main/README.md",
@@ -19,7 +19,8 @@
     "lodash": "^4.17.19"
   },
   "dependencies": {
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "@fortawesome/fontawesome-free": "^6.1.1"
   },
   "keywords": [
     "vue",
