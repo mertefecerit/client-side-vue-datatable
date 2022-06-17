@@ -13,8 +13,8 @@ Installation
 NEW FEATURE (tr/en):<br>
 ![image](https://user-images.githubusercontent.com/51813597/174000603-a586aa8e-ab97-44c2-a622-a533f110ecdb.png)
 
-NEW FEATURE : <br>
-
+NEW FEATURE <br>
+cellFormatter named function prop for simple cell formating
 
 Example code :<br>
 ![image](https://user-images.githubusercontent.com/51813597/173856902-ce608c9d-a0a8-4766-b9a6-75a9562148e1.png)
