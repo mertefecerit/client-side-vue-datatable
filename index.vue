@@ -55,7 +55,7 @@
                             </template>
                         </Dropdown>
                     </td>
-                    <td :class="{'hidden':hiddenColumns.includes(key)}" class="p-2" v-for="key in Object.keys(record)" v-show="!exceptColumns.includes(key)" :key="key">{{record[key]}}</td>
+                    <td :class="{'hidden':hiddenColumns.includes(key)}" class="p-2" v-for="key in Object.keys(record)" v-show="!exceptColumns.includes(key)" :key="key"><span :class="cellFormatter(record[key], key)">{{record[key]}}</span></td>
                 </tr>
                 </tbody>
             </table>
@@ -78,7 +78,7 @@
 </template>
 
 <script setup>
-import {watchEffect, ref, inject, defineProps, defineEmits} from "vue";
+import {watchEffect, ref, inject} from "vue";
     import Dropdown from "./components/Dropdown";
     import Alert from "./components/Alert";
     import languages from "./lang"
@@ -111,6 +111,10 @@ import {watchEffect, ref, inject, defineProps, defineEmits} from "vue";
         exportFileName:{
             default:"records",
             type: String
+        },
+        cellFormatter:{
+            required:false,
+            type: Function
         }
     });
     const emit = defineEmits(['onCreate','onEdit','onDelete','onRead'])
