@@ -113,7 +113,7 @@ import {watchEffect, ref, inject} from "vue";
             type: String
         },
         cellFormatter:{
-            required:false,
+            default:()=>{return null},
             type: Function
         }
     });
