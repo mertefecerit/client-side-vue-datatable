@@ -55,7 +55,7 @@
                             </template>
                         </Dropdown>
                     </td>
-                    <td :class="{'hidden':hiddenColumns.includes(key)}" class="p-2" v-for="key in Object.keys(record)" v-show="!exceptColumns.includes(key)" :key="key"><span :class="cellFormatter(record[key], key)">{{record[key]}}</span></td>
+                    <td :class="{'hidden':hiddenColumns.includes(key)}" class="p-2" v-for="key in Object.keys(record)" v-show="!exceptColumns.includes(key)" :key="key" v-html="cellFormatter(record[key], key)"></td>
                 </tr>
                 </tbody>
             </table>
@@ -113,7 +113,7 @@ import {watchEffect, ref, inject} from "vue";
             type: String
         },
         cellFormatter:{
-            default:()=>{return null},
+            default:(value)=>{return value},
             type: Function
         }
     });
