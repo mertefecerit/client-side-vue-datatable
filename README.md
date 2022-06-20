@@ -14,10 +14,13 @@ NEW FEATURE (tr/en):<br>
 ![image](https://user-images.githubusercontent.com/51813597/174000603-a586aa8e-ab97-44c2-a622-a533f110ecdb.png)
 
 NEW FEATURE <br>
-cellFormatter named function prop for simple cell formating
+cellFormatter example
+![cell_formatter example](https://user-images.githubusercontent.com/51813597/174548889-17e82377-5d3b-42e6-af7f-9479224f72bd.png)
+
 
 Example code :<br>
 ![image](https://user-images.githubusercontent.com/51813597/173856902-ce608c9d-a0a8-4766-b9a6-75a9562148e1.png)
 
 Example Video: <br>
 https://user-images.githubusercontent.com/51813597/174004100-b0a4e878-363e-4982-a465-e15d8d9a558d.mp4
+
