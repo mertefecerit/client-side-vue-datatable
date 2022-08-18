@@ -79,8 +79,8 @@
 
 <script setup>
 import {watchEffect, ref, inject} from "vue";
-    import Dropdown from "./components/Dropdown";
-    import Alert from "./components/Alert";
+    import Dropdown from "./components/Dropdown.vue";
+    import Alert from "./components/Alert.vue";
     import languages from "./lang"
 
     const props = defineProps({
